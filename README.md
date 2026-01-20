@@ -29,5 +29,9 @@ $$
 $$
 
 $$
-\left. \frac{dL\left(r\right)}{dr}\right|
+\left. \frac{dL\left(r\right)}{dr}\right|_{r=\Delta r} = 0
+$$
+
+$$
+\frac{\int_{0}^{\delta r} L\left( r \right) dr}{\int_{0}^{\inf} L\left( r \right) dr} = 0.68
 $$
