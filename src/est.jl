@@ -1,3 +1,9 @@
+using FITSIO
+using Plots
+using LaTeXStrings
+using Optim
+
+
 struct BBClModel
     lmax::Int
     ell::Vector{Int}
