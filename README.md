@@ -21,7 +21,8 @@ $$
 
 
 $$
-C_{\ell}^{BB,\rm{th}} = r C_{\ell}^{tenosr\left( r=1\right)} + C_{\ell}^{lens} + N_{\ell}, \\
+C_{\ell}^{BB,\rm{th}} = r C_{\ell}^{tenosr\left( r=1\right)} + C_{\ell}^{lens} + N_{\ell}, 
+
 \hat{C}_{\ell}^{BB,\rm{th}} = r C_{\ell}^{sys} + C_{\ell}^{lens} + N_{\ell}
 $$
 
