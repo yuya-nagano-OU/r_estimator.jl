@@ -19,6 +19,10 @@ $$
 \log{P_{\ell}\left( r \right)} = -f_\rm{sky} \frac{2\ell+1}{2}\left[ \frac{C_{\ell}^{BB,\rm{th}}}{C_{\ell}^{BB,\rm{obs}}} + \log{C_{\ell}^{BB,\rm{obs}}} - \frac{2\ell-1}{2\ell + 1}\log{C_{\ell}^{BB,\rm{th}}} \right]
 $$
 
+
 $$
-C_{\ell}^{BB,\rm{th}} = 
+C_{\ell}^{BB,\rm{th}} = r C_{\ell}^{tenosr\left( r=1\right)} + C_{\ell}^{lens} + N_{\ell}, \\
+\hat{C}_{\ell}^{BB,\rm{th}} = r C_{\ell}^{sys} + C_{\ell}^{lens} + N_{\ell}
 $$
+
+
