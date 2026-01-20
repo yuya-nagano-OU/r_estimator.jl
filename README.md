@@ -26,3 +26,6 @@ C_{\ell}^{BB,\rm{th}} = r C_{\ell}^{tenosr\left( r=1\right)} + C_{\ell}^{lens} +
 $$
 
 
+$$
+\left. \frac{dL\left(r\right)}{dr}\right|
+$$
