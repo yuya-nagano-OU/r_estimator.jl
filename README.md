@@ -16,5 +16,6 @@ Here, $\ell_\rm{min}$ and $\ell_\rm{max}$ are assumed to be used up to scales pa
 And for $\log{P_{\ell}\left( r \right)}$,
 
 $$
-\log{P_{\ell}\left( r \right)} = -f_\rm{sky} \frac{2\ell+1}{2}\left[ \frac{C^\rm{th}_{\ell}^{BB,\rm{th}}}{C_{\ell}^{BB,\rm{obs}}} \right]
+\log{P_{\ell}\left( r \right)} = -f_\rm{sky} \frac{2\ell+1}{2}\left[ \frac{C_{\ell}^{BB,\rm{th}}}{C_{\ell}^{BB,\rm{obs}}} \right]
 $$
+
