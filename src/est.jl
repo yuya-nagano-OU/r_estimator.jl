@@ -36,3 +36,26 @@ function read_planck_cl_as_TT_EE_BB_TE(fname; hdu_index=2)
     end
 end
 
+function r_iterative_estimator(params::BBClModel, rmin, rmax, rresol,; itr = 1)
+    r_ = range(rmin, rmax; length = Int(rresol))
+    likelihoods = zeros(length(r_))
+    cl_obs = params.cl_lens .+ params.cl_sys
+    r_result = 0.0
+    ell = params.ell
+    for itr_idx in 1:itr
+        for (idx, r) in enumerate(r_)
+            cl_th = params.cl_lens .+ r .* params.cl_tens
+            likelihoods[idx] = _likelihood(ell, cl_obs, cl_th)
+        end
+        maxid = argmax(likelihoods)
+        delta_r = r_[maxid]
+        r_result = delta_r
+        r_ = range(delta_r - delta_r*(0.5/(itr_idx)), delta_r + delta_r*(0.5/(itr_idx)); length = Int(rresol))
+    end
+    return r_result
+end
+
+
+@inline function _likelihood(ell, cl_obs, cl_th)
+return sum(-1/2 .* (2 .* ell .+ 1) .* (cl_obs ./ cl_th .+ log.(cl_th) .-((2 .* ell .- 1) ./ (2 .* ell .+ 1)) .* log.(cl_obs)))
+end
