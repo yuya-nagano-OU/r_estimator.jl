@@ -36,26 +36,49 @@ function read_planck_cl_as_TT_EE_BB_TE(fname; hdu_index=2)
     end
 end
 
-function r_iterative_estimator(params::BBClModel, rmin, rmax, rresol,; itr = 1)
-    r_ = range(rmin, rmax; length = Int(rresol))
-    likelihoods = zeros(length(r_))
+function r_iterative_estimator(params::BBClModel,; rmin, rmax, rresol, itr = 1)
+    r_grid = range(rmin, rmax; length = Int(rresol))
+    logL = zeros(length(r_grid))
     cl_obs = params.cl_lens .+ params.cl_sys
-    r_result = 0.0
     ell = params.ell
+    Δr = 0.0
     for itr_idx in 1:itr
-        for (idx, r) in enumerate(r_)
+        r_grid = range(rmin, rmax; length = Int(rresol))
+        for (idx, r) in enumerate(r_grid)
             cl_th = params.cl_lens .+ r .* params.cl_tens
-            likelihoods[idx] = _likelihood(ell, cl_obs, cl_th)
+            logL[idx] = _logL(ell, cl_obs, cl_th)
         end
-        maxid = argmax(likelihoods)
-        delta_r = r_[maxid]
-        r_result = delta_r
-        r_ = range(delta_r - delta_r*(0.5/(itr_idx)), delta_r + delta_r*(0.5/(itr_idx)); length = Int(rresol))
+        maxid = argmax(logL)
+        Δr = r_grid[maxid]
+        r_grid = range(Δr - Δr*(0.5/(itr_idx)), Δr + Δr*(0.5/(itr_idx)); length = Int(rresol))
     end
-    return r_result
+    return Δr
 end
 
 
-@inline function _likelihood(ell, cl_obs, cl_th)
+@inline function _logL(ell, cl_obs, cl_th)
 return sum(-1/2 .* (2 .* ell .+ 1) .* (cl_obs ./ cl_th .+ log.(cl_th) .-((2 .* ell .- 1) ./ (2 .* ell .+ 1)) .* log.(cl_obs)))
+end
+
+function δr_estimator(params::BBClModel,; rmin, rmax, rresol)
+    r_grid = range(rmin, rmax; length = Int(rresol))
+    logL = zeros(length(r_grid))
+    cl_obs = params.cl_lens .+ params.cl_sys
+    ell = params.ell
+    for (idx, r) in enumerate(r_grid)
+        cl_th = params.cl_lens .+ r .* params.cl_tens
+        logL[idx] = _logL(ell, cl_obs, cl_th)
+    end
+    L = exp.(logL .- maximum(logL))
+    δr, idx = delta_r_at_level(r_grid, L; level = 0.68)
+    return δr, L, r_grid, idx
+end
+
+function delta_r_at_level(r_grid, L; level = 0.68)
+    # Use normalized likelihood for numerical stability.
+    dr = step(r_grid)
+    cdf = cumsum((L[1:end-1] .+ L[2:end]) .* (dr / 2))
+    target = level * cdf[end]
+    idx = findfirst(>=(target), cdf)
+    return r_grid[idx + 1], idx+1
 end
