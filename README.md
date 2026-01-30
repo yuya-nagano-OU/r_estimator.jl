@@ -28,6 +28,8 @@ $$
 {C}_{\ell}^{BB,\rm{obs}} = C_{\ell}^{sys} + C_{\ell}^{lens} + N_{\ell}
 $$
 
+
+And the definitions of $\Delta r$ and $\delta r$ are as follows
 $$
 \left. \frac{dL\left(r\right)}{dr}\right|_{r=\Delta r} = 0
 $$
