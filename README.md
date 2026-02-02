@@ -1,6 +1,6 @@
 # tensor-to-schalar ratio estimator
 
-Here, we are implementing the likelihood described in Section 5.3.3 of [LiteBIRD PTEP](https://arxiv.org/abs/2202.02773).
+Here, we are implementing the likelihood described in Section 5.3.3 of [LiteBIRD paper](https://arxiv.org/abs/2202.02773).
 
 This code estimates the tensor-scalar ratio r of the observed $C_{\ell}^{BB}$ using the theoretical $C_{\ell}^{BB}$ and the observed $C_{\ell}^{BB}$ of the universe.
 
